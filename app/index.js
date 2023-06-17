@@ -41,7 +41,7 @@ app
     res.status(200).json(result);
   })
 
-  .get("/heads", async (req, res) => {
+  .get("/head", async (req, res) => {
     const result = await req.conn.execute(`SELECT * FROM heads`);
     res.status(200).json(result);
   })

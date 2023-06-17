@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AlpineJS</title>
+    <script src="alpinejs-3.12.0-min.js" defer></script>
+    <style>
+        * {
+            font-family: "Monaco", monospace;
+        }
+
+        table,th,tr,td {
+            border-collapse: collapse;
+            border: 1px solid #ff0000;
+            padding: 2px 6px;
+        }
+
+        a:visited {
+            color: blue;
+        }
+    </style>
+</head>
+
+<!-- <body x-data="{
+            metaData:[], student:[],
+             
+            getStudents(){
+                fetch('/student')
+                .then((response) => response.json())
+                .then((json) => {
+                    this.student = json.rows;
+                    console.log(this.student);
+                });        
+            }
+        
+        }" x-init="getStudents()">
+
+    <div>
+        <table>
+            <tr>
+                <th>NAME</th>
+                <th>SID</th>
+            </tr>
+            <template x-for="stud in student">
+                <tr>
+                    <td x-text="stud[0]"></td>
+                    <td x-text="stud[1]"></td>
+                </tr>
+            </template>
+        </table>
+    </div>
+</body> -->
+
+<body>
+
+    <div x-data="{
+  showTable: false,
+  metaData: [], student: [],
+  getStudents() {
+    fetch('/student')
+      .then(response => response.json())
+      .then(json => {
+        this.student = json.rows;
+        console.log(this.student);
+      });
+  }
+}" x-init="getStudents()">
+
+        <button @click="showTable = !showTable">STUDENT</button>
+
+        <div x-show="showTable">
+            <table>
+                <tr>
+                    <th>NAME</th>
+                    <th>SID</th>
+                </tr>
+                <template x-for="stud in student">
+                    <tr>
+                        <td x-text="stud[0]"></td>
+                        <td x-text="stud[1]"></td>
+                    </tr>
+                </template>
+            </table>
+        </div>
+    </div>
+
+
+<div x-data="{
+  showTable: false,
+  metaData: [], recap: [],
+  getRecaps() {
+    fetch('/recap')
+      .then(response => response.json())
+      .then(json => {
+        this.recap = json.rows;
+        console.log(this.recap);
+      });
+  }
+}" x-init="getRecaps()">
+
+    <button @click="showTable = !showTable">RECAP</button>
+
+    <div x-show="showTable">
+        <table>
+            <tr>
+                <th>SEMESTER</th>
+                <th>YEAR</th>
+                <th>COURSENAME</th>
+                <th>FACULTY</th>
+                <th>CLASS</th>
+                <th>RECAPID</th>
+            </tr>
+            <template x-for="rc in recap">
+                <tr>
+                    <td x-text="rc[0]"></td>
+                    <td x-text="rc[1]"></td>
+                    <td x-text="rc[2]"></td>
+                    <td x-text="rc[3]"></td>
+                    <td x-text="rc[4]"></td>
+                    <td x-text="rc[5]"></td>
+                </tr>
+            </template>
+        </table>
+    </div>
+</div>
+
+
+<div x-data="{
+  showTable: false,
+  metaData: [], register: [],
+  getRegisters() {
+    fetch('/register')
+      .then(response => response.json())
+      .then(json => {
+        this.register = json.rows;
+        console.log(this.register);
+      });
+  }
+}" x-init="getRegisters()">
+
+    <button @click="showTable = !showTable">REGISTER</button>
+
+    <div x-show="showTable">
+        <table>
+            <tr>
+                <th>REGID</th>
+                <th>SID</th>
+                <th>RECAPID</th>
+            </tr>
+            <template x-for="reg in register">
+                <tr>
+                    <td x-text="reg[0]"></td>
+                    <td x-text="reg[1]"></td>
+                    <td x-text="reg[2]"></td>
+                </tr>
+            </template>
+        </table>
+    </div>
+</div>
+
+<!-- 
+<div x-data="{
+  showTable: false,
+  metaData: [], result: [],
+  getResults() {
+    fetch('/result')
+      .then(response => response.json())
+      .then(json => {
+        this.result = json.rows;
+        console.log(this.result);
+      });
+  }
+}" x-init="getResults()">
+
+    <button @click="showTable = !showTable">RESULT</button>
+
+    <div x-show="showTable">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>OBTAIN</th>
+                <th>HID</th>
+                <th>SID</th>
+                <th>RECAPID</th>
+            </tr>
+            <template x-for="res in result">
+                <tr>
+                    <td x-text="res[0]"></td>
+                    <td x-text="res[1]"></td>
+                    <td x-text="res[2]"></td>
+                    <td x-text="res[3]"></td>
+                    <td x-text="res[4]"></td>
+                </tr>
+            </template>
+        </table>
+    </div>
+</div>
+
+
+<div x-data="{
+  showTable: false,
+  metaData: [], result: [],
+  getHeads() {
+    fetch('/head')
+      .then(response => response.json())
+      .then(json => {
+        this.head = json.rows;
+        console.log(this.head);
+      });
+  }
+}" x-init="getHeads()">
+
+    <button @click="showTable = !showTable">HEADS</button>
+
+    <div x-show="showTable">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>HEADER</th>
+                <th>MARKS</th>
+                <th>HID</th>
+                <th>RECAPID</th>
+            </tr>
+            <template x-for="hd in heads">
+                <tr>
+                    <td x-text="hd[0]"></td>
+                    <td x-text="hd[1]"></td>
+                    <td x-text="hd[2]"></td>
+                    <td x-text="hd[3]"></td>
+                    <td x-text="hd[4]"></td>
+                </tr>
+            </template>
+        </table>
+    </div>
+</div> 
+-->
+
+</body>
+
+</html>
