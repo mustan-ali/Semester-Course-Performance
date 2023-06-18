@@ -46,4 +46,9 @@ app
     res.status(200).json(result);
   })
 
+  .get("/semesterinfo", async (req, res) => {
+    const result = await req.conn.execute(`SELECT semester, year FROM recap GROUP BY semester, year ORDER BY year`);
+    res.status(200).json(result);
+  })
+
   .listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));

@@ -18,6 +18,12 @@
             padding: 2px 6px;
         }
 
+        button {
+            width: 120px;
+            padding: 5px;
+            margin: 5px;
+        }
+
         a:visited {
             color: blue;
         }
@@ -237,6 +243,37 @@
     </div>
 </div> 
 -->
+
+<div x-data="{
+  showTable: false,
+  metaData: [], semesterinfo: [],
+  getSemesterInfo() {
+    fetch('/semesterinfo')
+      .then(response => response.json())
+      .then(json => {
+        this.semesterinfo = json.rows;
+        console.log(this.semesterinfo);
+      });
+  }
+}" x-init="getSemesterInfo()">
+
+    <button @click="showTable = !showTable">SEMESTER INFO</button>
+
+    <div x-show="showTable">
+        <table>
+            <tr>
+                <th>SEMESTER</th>
+                <th>YEAR</th>
+            </tr>
+            <template x-for="si in semesterinfo">
+                <tr>
+                    <td x-text="si[0]"></td>
+                    <td x-text="si[1]"></td>
+                </tr>
+            </template>
+        </table>
+    </div>
+</div>
 
 </body>
 
