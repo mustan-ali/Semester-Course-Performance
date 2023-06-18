@@ -51,4 +51,14 @@ app
     res.status(200).json(result);
   })
 
+  .get("/showDetails/:year", async (req, res) => {
+    const year = req.params.year;
+    const result = await req.conn.execute(
+    `SELECT * FROM recap WHERE year = :year`,
+    [year]
+  );
+  res.status(200).json(result);
+})
+
+
   .listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));

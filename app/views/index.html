@@ -2,32 +2,35 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AlpineJS</title>
-    <script src="alpinejs-3.12.0-min.js" defer></script>
-    <style>
-        * {
-            font-family: "Monaco", monospace;
-        }
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AlpineJS</title>
+  <script src="alpinejs-3.12.0-min.js" defer></script>
+  <style>
+    * {
+      font-family: "Monaco", monospace;
+    }
 
-        table,th,tr,td {
-            border-collapse: collapse;
-            border: 1px solid #ff0000;
-            padding: 2px 6px;
-        }
+    table,
+    th,
+    tr,
+    td {
+      border-collapse: collapse;
+      border: 1px solid #ff0000;
+      padding: 2px 6px;
+    }
 
-        button {
-            width: 120px;
-            padding: 5px;
-            margin: 5px;
-        }
+    button {
+      width: 120px;
+      padding: 5px;
+      margin: 5px;
+    }
 
-        a:visited {
-            color: blue;
-        }
-    </style>
+    a:visited {
+      color: blue;
+    }
+  </style>
 </head>
 
 <!-- <body x-data="{
@@ -62,7 +65,7 @@
 
 <body>
 
-    <div x-data="{
+  <div x-data="{
   showTable: false,
   metaData: [], student: [],
   getStudents() {
@@ -75,26 +78,26 @@
   }
 }" x-init="getStudents()">
 
-        <button @click="showTable = !showTable">STUDENT</button>
+    <button @click="showTable = !showTable">STUDENT</button>
 
-        <div x-show="showTable">
-            <table>
-                <tr>
-                    <th>NAME</th>
-                    <th>SID</th>
-                </tr>
-                <template x-for="stud in student">
-                    <tr>
-                        <td x-text="stud[0]"></td>
-                        <td x-text="stud[1]"></td>
-                    </tr>
-                </template>
-            </table>
-        </div>
+    <div x-show="showTable">
+      <table>
+        <tr>
+          <th>NAME</th>
+          <th>SID</th>
+        </tr>
+        <template x-for="stud in student">
+          <tr>
+            <td x-text="stud[0]"></td>
+            <td x-text="stud[1]"></td>
+          </tr>
+        </template>
+      </table>
     </div>
+  </div>
 
 
-<div x-data="{
+  <div x-data="{
   showTable: false,
   metaData: [], recap: [],
   getRecaps() {
@@ -110,31 +113,31 @@
     <button @click="showTable = !showTable">RECAP</button>
 
     <div x-show="showTable">
-        <table>
-            <tr>
-                <th>SEMESTER</th>
-                <th>YEAR</th>
-                <th>COURSENAME</th>
-                <th>FACULTY</th>
-                <th>CLASS</th>
-                <th>RECAPID</th>
-            </tr>
-            <template x-for="rc in recap">
-                <tr>
-                    <td x-text="rc[0]"></td>
-                    <td x-text="rc[1]"></td>
-                    <td x-text="rc[2]"></td>
-                    <td x-text="rc[3]"></td>
-                    <td x-text="rc[4]"></td>
-                    <td x-text="rc[5]"></td>
-                </tr>
-            </template>
-        </table>
+      <table>
+        <tr>
+          <th>SEMESTER</th>
+          <th>YEAR</th>
+          <th>COURSENAME</th>
+          <th>FACULTY</th>
+          <th>CLASS</th>
+          <th>RECAPID</th>
+        </tr>
+        <template x-for="rc in recap">
+          <tr>
+            <td x-text="rc[0]"></td>
+            <td x-text="rc[1]"></td>
+            <td x-text="rc[2]"></td>
+            <td x-text="rc[3]"></td>
+            <td x-text="rc[4]"></td>
+            <td x-text="rc[5]"></td>
+          </tr>
+        </template>
+      </table>
     </div>
-</div>
+  </div>
 
 
-<div x-data="{
+  <div x-data="{
   showTable: false,
   metaData: [], register: [],
   getRegisters() {
@@ -150,24 +153,24 @@
     <button @click="showTable = !showTable">REGISTER</button>
 
     <div x-show="showTable">
-        <table>
-            <tr>
-                <th>REGID</th>
-                <th>SID</th>
-                <th>RECAPID</th>
-            </tr>
-            <template x-for="reg in register">
-                <tr>
-                    <td x-text="reg[0]"></td>
-                    <td x-text="reg[1]"></td>
-                    <td x-text="reg[2]"></td>
-                </tr>
-            </template>
-        </table>
+      <table>
+        <tr>
+          <th>REGID</th>
+          <th>SID</th>
+          <th>RECAPID</th>
+        </tr>
+        <template x-for="reg in register">
+          <tr>
+            <td x-text="reg[0]"></td>
+            <td x-text="reg[1]"></td>
+            <td x-text="reg[2]"></td>
+          </tr>
+        </template>
+      </table>
     </div>
-</div>
+  </div>
 
-<!-- 
+  <!-- 
 <div x-data="{
   showTable: false,
   metaData: [], result: [],
@@ -244,9 +247,70 @@
 </div> 
 -->
 
+  <!-- <div x-data="{
+  page: 1, metaData: [], semesterinfo: [], sd: [],
+
+  getSemesterInfo() {
+    fetch('/semesterinfo')
+      .then(response => response.json())
+      .then((json) => {
+        this.semesterinfo = json.rows;
+        console.log(this.semesterinfo);
+      });
+  },
+
+  showDetails(semester, year) {
+    fetch(`/showDetails/${semester}/${year}`)
+      .then(response => response.json())
+      .then(json => {
+        this.sd= json.rows[0];
+        this.metaData = json.metaData;
+        console.log(this.sd);
+        this.page = 2;
+      });
+  }
+}" x-init="getSemesterInfo()">
+
+    <div x-show="page === 1">
+      <table>
+        <tr>
+          <th>SEMESTER</th>
+          <th>YEAR</th>
+          <th>DETAILS</th>
+        </tr>
+        <template x-for="si in semesterinfo">
+          <tr>
+            <td x-text="si[0]"></td>
+            <td x-text="si[1]"></td>
+            <td>
+              <a href="#" @click="showDetails(`${si[0], ${si[1]}`})">SHOW</a>
+            </td>
+          </tr>
+        </template>
+      </table>
+
+    </div>
+
+    <div x-show="page === 2">
+      <table>
+        <tr>
+          <template x-for="(col, index) in sd">
+        <tr>
+          <th x-text="`$metaData[index].name`"></th>
+          <td x-text="col"></td>
+        </tr>
+        </template>
+      </table>
+
+    </div>
+
+  </div> -->
+
 <div x-data="{
-  showTable: false,
-  metaData: [], semesterinfo: [],
+  page: 1,
+  metaData: [],
+  semesterinfo: [],
+  sd: [],
   getSemesterInfo() {
     fetch('/semesterinfo')
       .then(response => response.json())
@@ -254,26 +318,61 @@
         this.semesterinfo = json.rows;
         console.log(this.semesterinfo);
       });
+  },
+  showDetails(year) {
+    fetch(`/showDetails/${year}`)
+      .then(response => response.json())
+      .then(json => {
+        this.sd = json.rows; // Assign the entire array of rows
+        this.metaData = json.metaData;
+        console.log(this.sd);
+        this.page = 2;
+      });
   }
 }" x-init="getSemesterInfo()">
 
-    <button @click="showTable = !showTable">SEMESTER INFO</button>
+  <div x-show="page === 1">
+    <table>
+      <tr>
+        <th>SEMESTER</th>
+        <th>YEAR</th>
+        <th>Details</th>
+      </tr>
+      <template x-for="si in semesterinfo">
+        <tr>
+          <td x-text="si[0]"></td>
+          <td x-text="si[1]"></td>
+          <td><a href="#" @click="showDetails(si[1])">View</a></td>
+        </tr>
+      </template>
+    </table>
+  </div>
 
-    <div x-show="showTable">
-        <table>
-            <tr>
-                <th>SEMESTER</th>
-                <th>YEAR</th>
-            </tr>
-            <template x-for="si in semesterinfo">
-                <tr>
-                    <td x-text="si[0]"></td>
-                    <td x-text="si[1]"></td>
-                </tr>
-            </template>
-        </table>
-    </div>
+  <div x-show="page === 2">
+    <table>
+      <tr>
+        <th>SEMESTER</th>
+        <th>YEAR</th>
+        <th>COURSENAME</th>
+        <th>FACULTY</th>
+        <th>CLASS</th>
+        <th>RECAPID</th>
+      </tr>
+      <template x-for="row in sd">
+        <tr>
+          <template x-for="col in row">
+            <td x-text="col"></td>
+          </template>
+        </tr>
+      </template>
+    </table>
+  </div>
 </div>
+
+
+
+
+
 
 </body>
 
