@@ -51,14 +51,21 @@ app
     res.status(200).json(result);
   })
 
-  .get("/showDetails/:year", async (req, res) => {
+  .get("/showDetails/:semester/:year", async (req, res) => {
+    const semester = req.params.semester;
     const year = req.params.year;
     const result = await req.conn.execute(
-    `SELECT * FROM recap WHERE year = :year`,
-    [year]
-  );
-  res.status(200).json(result);
-})
+      `SELECT r.semester, r.year, r.coursename,r.faculty, r.class, COUNT(DISTINCT s.sid), SUM(CASE WHEN h.header = 'Total' AND rs.obtain > 50 THEN 1 ELSE 0 END)
+      FROM recap r
+      JOIN register rg ON r.recapid = rg.recapid
+      JOIN student s ON rg.sid = s.sid
+      JOIN result rs ON rs.sid = s.sid and rs.recapid = r.recapid
+      JOIN heads h ON h.recapid = r.recapid
+      WHERE r.semester = :semester AND r.year = :year
+      GROUP BY r.semester, r.year, r.coursename, r.class, r.faculty ORDER BY r.coursename`,
+      [semester, year]);
+    res.status(200).json(result);
+  })
 
 
   .listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));

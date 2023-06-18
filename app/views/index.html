@@ -306,7 +306,7 @@
 
   </div> -->
 
-<div x-data="{
+  <div x-data="{
   page: 1,
   metaData: [],
   semesterinfo: [],
@@ -319,60 +319,54 @@
         console.log(this.semesterinfo);
       });
   },
-  showDetails(year) {
-    fetch(`/showDetails/${year}`)
+  showDetails(semester, year) {
+    fetch(`/showDetails/${semester}/${year}`)
       .then(response => response.json())
       .then(json => {
-        this.sd = json.rows; // Assign the entire array of rows
+        this.sd = json.rows;
         this.metaData = json.metaData;
         console.log(this.sd);
         this.page = 2;
       });
   }
 }" x-init="getSemesterInfo()">
-
-  <div x-show="page === 1">
-    <table>
-      <tr>
-        <th>SEMESTER</th>
-        <th>YEAR</th>
-        <th>Details</th>
-      </tr>
-      <template x-for="si in semesterinfo">
+    <div x-show="page === 1">
+      <table>
         <tr>
-          <td x-text="si[0]"></td>
-          <td x-text="si[1]"></td>
-          <td><a href="#" @click="showDetails(si[1])">View</a></td>
+          <th>SEMESTER</th>
+          <th>YEAR</th>
+          <th>Details</th>
         </tr>
-      </template>
-    </table>
-  </div>
-
-  <div x-show="page === 2">
-    <table>
-      <tr>
-        <th>SEMESTER</th>
-        <th>YEAR</th>
-        <th>COURSENAME</th>
-        <th>FACULTY</th>
-        <th>CLASS</th>
-        <th>RECAPID</th>
-      </tr>
-      <template x-for="row in sd">
+        <template x-for="si in semesterinfo">
+          <tr>
+            <td x-text="si[0]"></td>
+            <td x-text="si[1]"></td>
+            <td><a href="#" @click="showDetails(si[0], si[1])">View</a></td>
+          </tr>
+        </template>
+      </table>
+    </div>
+    <div x-show="page === 2">
+      <table>
         <tr>
-          <template x-for="col in row">
-            <td x-text="col"></td>
-          </template>
+          <th>SEMESTER</th>
+          <th>YEAR</th>
+          <th>COURSENAME</th>
+          <th>FACULTY</th>
+          <th>CLASS</th>
+          <th>REGISTERED</th>
+          <th>PASS</th>
         </tr>
-      </template>
-    </table>
+        <template x-for="row in sd">
+          <tr>
+            <template x-for="col in row">
+              <td x-text="col"></td>
+            </template>
+          </tr>
+        </template>
+      </table>
+    </div>
   </div>
-</div>
-
-
-
-
-
 
 </body>
 
