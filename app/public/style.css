@@ -1,0 +1,44 @@
+body {
+    font-family: monospace;
+    font-size: 13px;
+}
+
+a:visited {
+    color: blue;
+}
+
+table,
+th,
+tr,
+td {
+    border-collapse: collapse;
+    border: 1px solid #ff0000;
+    padding: 2px 6px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+    background-color: chartreuse;
+    padding: 6px 10px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+li a {
+    text-decoration: none;
+}
+
+li a:hover {
+    text-decoration: underline;
+}
+
+.disabled {
+    pointer-events: none;
+}

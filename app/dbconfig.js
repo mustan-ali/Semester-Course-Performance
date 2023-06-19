@@ -1,5 +1,5 @@
 module.exports = {
-    user: "DEMO",
+    user: "demo",
     password: "demo",
     connectString: "oradb/XE",
 };

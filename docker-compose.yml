@@ -2,19 +2,18 @@ version: "3.8"
 
 services:
     oradb:
-        container_name: ORACLE-11g
+        container_name: ORA-DB
         image: wnameless/oracle-xe-11g-r2
         restart: unless-stopped
         environment:
             - ORACLE_ALLOW_REMOTE=true
         ports:
             - "1521:1521"
-            - "8080:8080"
         volumes:
             - ./dump:/u01/app/oracle/admin/XE/dpdump
             - ./init:/docker-entrypoint-initdb.d/
         healthcheck:
-            test: ["CMD", "bash", "-c", "echo 'select 1 from dual;' | ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe /u01/app/oracle/product/11.2.0/xe/bin/sqlplus -s sys/oralce@localhost"]
+            test: ["CMD", "bash", "-c", "echo 'SELECT COUNT(*) FROM demo.student;' | ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe /u01/app/oracle/product/11.2.0/xe/bin/sqlplus -s sys/oralce@localhost"]
             interval: 5s
             timeout: 30s
             retries: 5
