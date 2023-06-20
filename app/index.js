@@ -77,5 +77,14 @@ app.use(express.static(path.join(__dirname, "public")))
         res.status(200).json(result);
     })
 
-    .listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
+    .post("/saveRecap", async (req, res) => {
+        // 0: SEMESTER, 1: YEAR, 2: COURSENAME, 3: FACULTY, 4: CLASS, 5: RECAPID
+        let col = req.body;
+        const result = await req.conn.execute(
+            // `UPDATE recap SET semester = :semester, year = :year, coursename = :coursename, faculty = :faculty, class = :class WHERE recapid = :recapid`,
+            [col[0], col[1], col[2], col[3], col[4], col[5]]
+        );
+        res.status(200).json(result);
+    })
 
+    .listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
