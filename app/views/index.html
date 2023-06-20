@@ -18,6 +18,7 @@
   metaData: [],
   semesterinfo: [],
   sd: [],
+  ri: [],
   getSemesterInfo() {
     fetch('/semesterinfo')
       .then(response => response.json())
@@ -35,7 +36,19 @@
         console.log(this.sd);
         this.page = 8;
       });
-  }
+  },
+
+  getRecapInfo(recapid) {
+    fetch(`/recapinfo/${recapid}`)
+      .then(response => response.json())
+      .then(json => {
+        this.ri = json.rows;
+        this.metaData = json.metaData;
+        console.log(this.ri);
+        this.page = 9;  
+      });
+}
+
 }" x-init="getSemesterInfo()">
         <!-- Re-usable Data -->
         <div>
@@ -76,12 +89,17 @@
                     <th>FACULTY</th>
                     <th>CLASS</th>
                     <th>RECAPID</th>
+                    <th>UPDATE</th>
                 </tr>
                 <template x-for="recap in data[key]">
                     <tr>
-                        <template x-for="col in recap">
-                            <td x-text="col"></td>
-                        </template>
+                        <td x-text="recap[0]"></td>
+                        <td x-text="recap[1]"></td>
+                        <td x-text="recap[2]"></td>
+                        <td x-text="recap[3]"></td>
+                        <td x-text="recap[4]"></td>
+                        <td x-text="recap[5]"></td>
+                        <td><a href="#" @click="getRecapInfo(recap[5])">Edit</a></td>
                     </tr>
                 </template>
             </table>
@@ -198,6 +216,27 @@
                 </template>
             </table>
         </div>
+
+        <div x-show="page === 9">
+            <table>
+                <tr>
+                    <th>SEMESTER</th>
+                    <th>YEAR</th>
+                    <th>COURSENAME</th>
+                    <th>FACULTY</th>
+                    <th>CLASS</th>
+                    <th>RECAPID</th>
+                </tr>
+                <template x-for="row in ri">
+                    <tr>
+                        <template x-for="col in row">
+                            <td x-text="col"></td>
+                        </template>
+                    </tr>
+                </template>
+            </table>
+        </div>
+
     </div>
 
 </body>

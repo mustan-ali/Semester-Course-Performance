@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, "public")))
         const result = await req.conn.execute(`SELECT * FROM student`);
         res.render("index");
     })
-    
+
     .get("/data/:page", async (req, res) => {
         const page = req.params.page;
         console.log("page >> ", page);
@@ -66,6 +66,14 @@ app.use(express.static(path.join(__dirname, "public")))
       WHERE r.semester = :semester AND r.year = :year
       GROUP BY r.semester, r.year, r.coursename, r.class, r.faculty ORDER BY r.coursename`,
             [semester, year]);
+        res.status(200).json(result);
+    })
+
+    .get("/recapinfo/:recapid", async (req, res) => {
+        const recapid = req.params.recapid;
+        const result = await req.conn.execute(
+            `SELECT * FROM recap WHERE recapid = :recapid`,
+            [recapid]);
         res.status(200).json(result);
     })
 
