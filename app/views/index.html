@@ -14,42 +14,53 @@
 <body x-data="dataApp">
 
     <div x-data="{
-  page: 7,
-  metaData: [],
-  semesterinfo: [],
-  sd: [],
-  ri: [],
-  getSemesterInfo() {
-    fetch('/semesterinfo')
-      .then(response => response.json())
-      .then(json => {
-        this.semesterinfo = json.rows;
-        console.log(this.semesterinfo);
-      });
-  },
-  showDetails(semester, year) {
-    fetch(`/showDetails/${semester}/${year}`)
-      .then(response => response.json())
-      .then(json => {
-        this.sd = json.rows;
-        this.metaData = json.metaData;
-        console.log(this.sd);
-        this.page = 8;
-      });
-  },
-
-  getRecapInfo(recapid) {
-    fetch(`/recapinfo/${recapid}`)
-      .then(response => response.json())
-      .then(json => {
-        this.ri = json.rows;
-        this.metaData = json.metaData;
-        console.log(this.ri);
-        this.page = 9;  
-      });
-}
-
-}" x-init="getSemesterInfo()">
+    page: 7,
+    metaData: [],
+    semesterinfo: [],
+    sd: [],
+    ri: [],
+    getSemesterInfo() {
+      fetch('/semesterinfo')
+        .then(response => response.json())
+        .then(json => {
+          this.semesterinfo = json.rows;
+          console.log(this.semesterinfo);
+        });
+    },
+    showDetails(semester, year) {
+      fetch(`/showDetails/${semester}/${year}`)
+        .then(response => response.json())
+        .then(json => {
+          this.sd = json.rows;
+          this.metaData = json.metaData;
+          console.log(this.sd);
+          this.page = 8;
+        });
+    },
+    getRecapInfo(recapid) {
+      fetch(`/recapinfo/${recapid}`)
+        .then(response => response.json())
+        .then(json => {
+          this.ri = json.rows;
+          this.metaData = json.metaData;
+          console.log(this.ri);
+          this.page = 9;
+        });
+    },
+    save() {
+      fetch(`/saveRecap`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(this.ri)
+        })
+        .then(response => response.json())
+        .then(json => {
+          console.log(this.ri);
+          this.getData(2);
+          this.page = 2;
+        });
+    }
+  }" x-init="getSemesterInfo()">
         <!-- Re-usable Data -->
         <div>
             <ul>
@@ -229,12 +240,17 @@
                 </tr>
                 <template x-for="row in ri">
                     <tr>
-                        <template x-for="col in row">
-                            <td x-text="col"></td>
-                        </template>
+                        <td x-text="row[0]"></td>
+                        <td x-text="row[1]"></td>
+                        <td x-text="row[2]"></td>
+                        <td><input type="text" x-model="row[3]"/></td>
+                        <td><input type="text" x-model="row[4]"/></td>
+                        <td x-text="row[5]"></td>
                     </tr>
                 </template>
             </table>
+            <button @click="save()">Save</button>
+            <pre x-text="JSON.stringify(ri, null, ' ')"></pre>
         </div>
 
     </div>
