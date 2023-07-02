@@ -57,7 +57,7 @@ app.use(express.static(path.join(__dirname, "public")))
         const semester = req.params.semester;
         const year = req.params.year;
         const result = await req.conn.execute(
-            `SELECT r.semester, r.year, r.coursename,r.faculty, r.class, COUNT(DISTINCT s.sid), SUM(CASE WHEN h.header = 'Total' AND rs.obtain > 50 THEN 1 ELSE 0 END)
+            `SELECT r.semester, r.year, r.coursename,r.faculty, r.class, COUNT(DISTINCT s.sid), SUM(CASE WHEN h.header = 'Total' AND rs.obtain > 60 THEN 1 ELSE 0 END)
       FROM recap r
       JOIN register rg ON r.recapid = rg.recapid
       JOIN student s ON rg.sid = s.sid
